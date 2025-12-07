@@ -1,1 +1,0 @@
-import{J as i}from"./firebase-vendor-BDhSju_T.js";import{a}from"./firebase-auth-V8RQ8eEz.js";import"./firebase-app-CdRXrjY0.js";import"./vendor-BdN5Q6dY.js";import"./firebase-firestore-DyzXcozE.js";async function e(r,t){try{await a(i,r,t),window.location.href="dashboard.html"}catch(o){throw console.error("Login error:",o),o}}export{e as login};
