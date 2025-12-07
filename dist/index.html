@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In • IT Inventory</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Firebase will be installed via npm: npm install firebase -->
+  <!-- Or use a bundler like Vite/Webpack for ES modules -->
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#140958">
+  <script type="module" crossorigin src="/assets/main-Di-IVZuh.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/vendor-BdN5Q6dY.js">
+  <link rel="modulepreload" crossorigin href="/assets/firebase-app-CdRXrjY0.js">
+  <link rel="modulepreload" crossorigin href="/assets/firebase-auth-V8RQ8eEz.js">
+  <link rel="modulepreload" crossorigin href="/assets/firebase-firestore-DyzXcozE.js">
+  <link rel="modulepreload" crossorigin href="/assets/firebase-vendor-BDhSju_T.js">
+  <link rel="modulepreload" crossorigin href="/assets/qrcode-_3APf9r8.js">
+  <link rel="stylesheet" crossorigin href="/assets/main-C_eAn_If.css">
+</head>
+<body>
+  <div class="auth-bg" aria-hidden="true"></div>
+  <main class="auth">
+    <section class="auth-card" role="dialog" aria-labelledby="auth-title" aria-describedby="auth-desc">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">LOGO</div>
+        <div class="brand-copy">
+          <h1 id="auth-title">IT Inventory</h1>
+          <p id="auth-desc">IT Inventory Management System Using RFID & QR Code Technologies</p>
+        </div>
+      </div>
+
+      <div class="tabs" role="tablist" aria-label="Authentication tabs">
+        <button class="tab active" role="tab" aria-selected="true" aria-controls="panel-login" id="tab-login">Login</button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="panel-signup" id="tab-signup">Sign Up</button>
+        <span class="tab-indicator" aria-hidden="true"></span>
+      </div>
+
+      <section class="panels">
+        <form id="panel-login" class="panel active" role="tabpanel" aria-labelledby="tab-login" autocomplete="on" novalidate>
+          <div class="field">
+            <label for="login-email">Email</label>
+            <input id="login-email" name="email" type="email" inputmode="email" placeholder="youremail@gmail.com" required />
+            <small class="error" id="login-email-error" role="status"></small>
+          </div>
+          <div class="field password">
+            <label for="login-password">Password</label>
+            <input id="login-password" name="password" type="password" placeholder="Your Password" minlength="6" required />
+            <button type="button" class="toggle-pass" aria-label="Show password"></button>
+            <small class="error" id="login-password-error" role="status"></small>
+          </div>
+          <div class="actions">
+            <label class="remember">
+              <input type="checkbox" id="remember" />
+              <span>Remember me</span>
+            </label>
+            <a href="#" class="link">Forgot password?</a>
+          </div>
+          <button type="submit" class="btn primary">SIGN IN</button>
+          <p class="swap">Don’t have an account? <a href="#" data-swap="signup" class="link">Create one</a></p>
+        </form>
+
+        <form id="panel-signup" class="panel" role="tabpanel" aria-labelledby="tab-signup" autocomplete="on" novalidate>
+          <div class="field">
+            <label for="signup-name">Full Name</label>
+            <input id="signup-name" name="name" type="text" placeholder="Your Name" required />
+            <small class="error" id="signup-name-error" role="status"></small>
+          </div>
+          <div class="field">
+            <label for="signup-email">Email</label>
+            <input id="signup-email" name="email" type="email" inputmode="email" placeholder="youremail@gmail.com" required />
+            <small class="error" id="signup-email-error" role="status"></small>
+          </div>
+          <div class="field password">
+            <label for="signup-password">Password</label>
+            <input id="signup-password" name="password" type="password" placeholder="At least 8 characters" minlength="8" required />
+            <button type="button" class="toggle-pass" aria-label="Show password"></button>
+            <small class="error" id="signup-password-error" role="status"></small>
+          </div>
+          <div class="field password">
+            <label for="signup-confirm">Confirm Password</label>
+            <input id="signup-confirm" name="confirm" type="password" placeholder="Re enter password" minlength="8" required />
+            <button type="button" class="toggle-pass" aria-label="Show password"></button>
+            <small class="error" id="signup-confirm-error" role="status"></small>
+          </div>
+          <button type="submit" class="btn primary">CREATE ACCOUNT</button>
+          <p class="swap">Already have an account? <a href="#" data-swap="login" class="link">Sign in</a></p>
+        </form>
+      </section>
+
+    </section>
+
+  </main>
+</body>
+</html>
