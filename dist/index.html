@@ -3,22 +3,86 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sign In • IT Inventory</title>
+  <title>Sign In • IT Inventory</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <!-- Firebase will be installed via npm: npm install firebase -->
-  <!-- Or use a bundler like Vite/Webpack for ES modules -->
+  <!-- Or use a bundler like Vite/Webpack for ES modules -->
+
   <meta name="color-scheme" content="light dark">
-  <meta name="theme-color" content="#140958">
-  <script type="module" crossorigin src="/assets/main-Di-IVZuh.js"></script>
-  <link rel="modulepreload" crossorigin href="/assets/vendor-BdN5Q6dY.js">
-  <link rel="modulepreload" crossorigin href="/assets/firebase-app-CdRXrjY0.js">
-  <link rel="modulepreload" crossorigin href="/assets/firebase-auth-V8RQ8eEz.js">
-  <link rel="modulepreload" crossorigin href="/assets/firebase-firestore-DyzXcozE.js">
-  <link rel="modulepreload" crossorigin href="/assets/firebase-vendor-BDhSju_T.js">
-  <link rel="modulepreload" crossorigin href="/assets/qrcode-_3APf9r8.js">
-  <link rel="stylesheet" crossorigin href="/assets/main-C_eAn_If.css">
+  <meta name="theme-color" content="#140958">
+  <script>
+    // Security: Remove any URL parameters to prevent credentials from appearing in URL
+    if (window.location.search || window.location.hash) {
+      const cleanUrl = window.location.pathname;
+      window.history.replaceState({}, document.title, cleanUrl);
+    }
+  </script>
+  <script>
+    // Fallback: Ensure tab switching works even if main script has issues
+    document.addEventListener('DOMContentLoaded', function() {
+      // Function to switch tabs
+      function switchTab(tabName) {
+        const loginTab = document.getElementById('tab-login');
+        const signupTab = document.getElementById('tab-signup');
+        const loginPanel = document.getElementById('panel-login');
+        const signupPanel = document.getElementById('panel-signup');
+        const tabsContainer = document.querySelector('.tabs');
+        
+        if (!loginTab || !signupTab || !loginPanel || !signupPanel) return;
+        
+        if (tabName === 'signup') {
+          loginTab.classList.remove('active');
+          signupTab.classList.add('active');
+          loginPanel.classList.remove('active');
+          signupPanel.classList.add('active');
+          loginTab.setAttribute('aria-selected', 'false');
+          signupTab.setAttribute('aria-selected', 'true');
+          if (tabsContainer) tabsContainer.classList.add('signup');
+        } else {
+          signupTab.classList.remove('active');
+          loginTab.classList.add('active');
+          signupPanel.classList.remove('active');
+          loginPanel.classList.add('active');
+          signupTab.setAttribute('aria-selected', 'false');
+          loginTab.setAttribute('aria-selected', 'true');
+          if (tabsContainer) tabsContainer.classList.remove('signup');
+        }
+      }
+      
+      // Add click handlers to swap links
+      const swapLinks = document.querySelectorAll('.swap a[data-swap]');
+      swapLinks.forEach(function(link) {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const swapValue = this.getAttribute('data-swap');
+          if (swapValue) {
+            switchTab(swapValue);
+          }
+        });
+      });
+      
+      // Also ensure tab buttons work
+      const loginTabBtn = document.getElementById('tab-login');
+      const signupTabBtn = document.getElementById('tab-signup');
+      if (loginTabBtn) {
+        loginTabBtn.addEventListener('click', function() { switchTab('login'); });
+      }
+      if (signupTabBtn) {
+        signupTabBtn.addEventListener('click', function() { switchTab('signup'); });
+      }
+    });
+  </script>
+  <script type="module" crossorigin src="/assets/main-DKFDqSII.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/vendor-Bg_btqvK.js">
+  <link rel="modulepreload" crossorigin href="/assets/firebase-app-J8-aw7xu.js">
+  <link rel="modulepreload" crossorigin href="/assets/firebase-auth-CkiyymQV.js">
+  <link rel="modulepreload" crossorigin href="/assets/firebase-firestore-BwGYsYUu.js">
+  <link rel="modulepreload" crossorigin href="/assets/firebase-vendor-V7RN5xDf.js">
+  <link rel="modulepreload" crossorigin href="/assets/qrcode-DoIZHLKK.js">
+  <link rel="stylesheet" crossorigin href="/assets/main-GKi2_nY0.css">
 </head>
 <body>
   <div class="auth-bg" aria-hidden="true"></div>
@@ -39,7 +103,7 @@
       </div>
 
       <section class="panels">
-        <form id="panel-login" class="panel active" role="tabpanel" aria-labelledby="tab-login" autocomplete="on" novalidate>
+        <form id="panel-login" class="panel active" role="tabpanel" aria-labelledby="tab-login" onsubmit="return false;" autocomplete="on" novalidate>
           <div class="field">
             <label for="login-email">Email</label>
             <input id="login-email" name="email" type="email" inputmode="email" placeholder="youremail@gmail.com" required />
@@ -62,7 +126,7 @@
           <p class="swap">Don’t have an account? <a href="#" data-swap="signup" class="link">Create one</a></p>
         </form>
 
-        <form id="panel-signup" class="panel" role="tabpanel" aria-labelledby="tab-signup" autocomplete="on" novalidate>
+        <form id="panel-signup" class="panel" role="tabpanel" aria-labelledby="tab-signup" onsubmit="return false;" autocomplete="on" novalidate>
           <div class="field">
             <label for="signup-name">Full Name</label>
             <input id="signup-name" name="name" type="text" placeholder="Your Name" required />
@@ -91,7 +155,8 @@
       </section>
 
     </section>
-
+
+
   </main>
 </body>
 </html>
