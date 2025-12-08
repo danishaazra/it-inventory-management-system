@@ -66,26 +66,42 @@
 
   panelLogin.addEventListener('submit', async (e) => {
     e.preventDefault();
+    e.stopPropagation();
+    
+    console.log('Login form submitted');
+    
     const emailOk = validateEmail($('#login-email'));
     const passOk = validateRequired($('#login-password'), 6, 'At least 6 characters');
+    
+    console.log('Validation:', { emailOk, passOk });
     
     if (emailOk && passOk) {
       const email = $('#login-email').value.trim();
       const password = $('#login-password').value;
       const submitBtn = e.target.querySelector('.btn.primary');
-      const originalText = submitBtn.textContent;
+      const originalText = submitBtn ? submitBtn.textContent : 'SIGN IN';
+      
+      console.log('Attempting login for:', email);
       
       // Disable button and show loading
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'SIGNING IN...';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'SIGNING IN...';
+      }
       
       try {
+        console.log('Importing login module...');
         const { login } = await import('./authentication/login.js');
+        console.log('Login module imported, calling login function...');
         await login(email, password);
-        // Redirect happens in login.js (goes to ../dashboard/dashboard.html)
+        console.log('Login successful, redirect should happen now');
+        // Redirect happens in login.js
       } catch (error) {
-        submitBtn.disabled = false;
-        submitBtn.textContent = originalText;
+        console.error('Login error caught:', error);
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalText;
+        }
         setError($('#login-email'), '');
         
         // User-friendly error messages
@@ -99,10 +115,20 @@
           setError($('#login-email'), errorMsg);
         } else if (error.code === 'auth/too-many-requests') {
           errorMsg = 'Too many failed attempts. Please try again later.';
+        } else if (error.code === 'auth/network-request-failed') {
+          errorMsg = 'Network error. Please check your internet connection.';
         } else if (error.message) {
           errorMsg = error.message;
         }
         setError($('#login-password'), errorMsg);
+      }
+    } else {
+      console.log('Form validation failed');
+      if (!emailOk) {
+        console.log('Email validation failed');
+      }
+      if (!passOk) {
+        console.log('Password validation failed');
       }
     }
   });
@@ -198,6 +224,18 @@
 
   // Initialize in login mode
   activate('login');
+  
+  // Fallback: Also handle button click directly in case form submit doesn't fire
+  const loginSubmitBtn = panelLogin.querySelector('.btn.primary');
+  if (loginSubmitBtn) {
+    loginSubmitBtn.addEventListener('click', (e) => {
+      // Only trigger if form hasn't already been submitted
+      if (!e.target.disabled) {
+        const formEvent = new Event('submit', { bubbles: true, cancelable: true });
+        panelLogin.dispatchEvent(formEvent);
+      }
+    });
+  }
 })();
 
 

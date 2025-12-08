@@ -23,15 +23,8 @@ if (!isLoginPage && !window.__authGuardInitialized) {
     if (!user) {
       // User not authenticated - redirect to login (only once)
       hasRedirected = true;
-      const redirectPath = window.location.pathname.includes('/dist/') 
-        ? '/index.html' 
-        : (window.location.pathname.includes('/dashboard/') || 
-           window.location.pathname.includes('/assets/') || 
-           window.location.pathname.includes('/maintenance/') ||
-           window.location.pathname.includes('/inspection/') ||
-           window.location.pathname.includes('/qrcode/'))
-          ? '../index.html'
-          : './index.html';
+      // Always use absolute path to root index.html
+      const redirectPath = '/index.html';
       
       // Small delay to prevent immediate redirect loops
       setTimeout(() => {

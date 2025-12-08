@@ -1,6 +1,7 @@
 // Shared initialization for all protected pages
 // This removes duplication across all feature pages
 
+import './urlSecurity.js'; // Clear URL parameters first for security
 import './authGuard.js';
 import { initSidebarToggle } from './sidebar.js';
 import { initUserHeader } from './userHeader.js';
